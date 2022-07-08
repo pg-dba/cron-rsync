@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# ssh-copy-id
+if [[ ! -f /root/.ssh/id_rsa ]]; then
+ssh-keygen -t rsa -b 4096 -q -N "" -f /root/.ssh/id_rsa
+ssh -o PreferredAuthentications=publickey -o StrictHostKeyChecking=no ${CRONHOST} /bin/true 2>/dev/null
+SSHPASS=${SSHPASSWORD} sshpass -e ssh-copy-id ${CRONHOST}
+fi
+
 # setting user for additional cron jobs
 case $1 in
 -u=*|--user=*)

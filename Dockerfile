@@ -6,6 +6,7 @@ RUN set -ex && \
     apk add --no-cache linux-pam && \
     apk add --no-cache openssh-client && \
     apk add --no-cache bind-tools && \
+    apk add --no-cache sshpass && \
     apk add --no-cache rsync && \
 # making logging pipe
     mkfifo -m 0666 /var/log/cron.log && \
