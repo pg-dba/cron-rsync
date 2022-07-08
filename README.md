@@ -28,7 +28,7 @@ ssh-copy-id выполняется скриптом при старте конт
 Пример для "посмотреть":<BR>
 
 docker run --rm -it -h cron-rsync \\<BR>
-  -e TZ='Europe/Moscow' -e CRONHOST=172.27.172.32 -e SSHPASSWORD=Rr123456 \\<BR>
+  -e TZ='Europe/Moscow' -e CRONHOST=172.27.172.32 -e SSHPASSWORD=P@ssw0rd \\<BR>
   -v /tmp:/cronwork \\<BR>
   sqldbapg/cron-rsync \\<BR>
   start-cron "*/1 \\* \\* \\* \\* env \\| sort 2>&1 1>>/var/log/cron.log" &
