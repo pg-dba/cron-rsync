@@ -3,6 +3,9 @@ FROM alpine:latest
 RUN set -ex && \
 # install bash
     apk add --no-cache bash && \
+    apk add --no-cache linux-pam && \
+    apk add --no-cache openssh-client && \
+    apk add --no-cache bind-tools && \
     apk add --no-cache rsync && \
 # making logging pipe
     mkfifo -m 0666 /var/log/cron.log && \
