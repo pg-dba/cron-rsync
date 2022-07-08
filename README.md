@@ -36,3 +36,5 @@ docker run --rm -it -h cron-rsync \\<BR>
 docker exec -it $(docker ps | grep ' sqldbapg/cron-rsync' | awk '{ print $1 }') bash -c "crontab -l"
 
 docker logs --follow $(docker ps | grep ' sqldbapg/cron-rsync' | awk '{ print $1 }')
+
+docker stop $(docker ps | grep ' sqldbapg/cron-rsync' | awk '{ print $1 }')
