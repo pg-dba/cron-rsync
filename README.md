@@ -31,7 +31,7 @@ docker run --rm -it -h cron-rsync \\<BR>
   -e TZ='Europe/Moscow' -e CRONHOST=172.27.172.32 -e SSHPASSWORD=P@ssw0rd \\<BR>
   -v /tmp:/cronwork \\<BR>
   sqldbapg/cron-rsync \\<BR>
-  start-cron "*/1 \\* \\* \\* \\* env \\| sort 2>&1 1>>/var/log/cron.log" &
+  start-cron "\\\\*/5 \\\\* \\\\* \\\\* \\\\* env \\\\| sort 2>&1 1>>/var/log/cron.log" &
 
 docker exec -it $(docker ps | grep ' sqldbapg/cron-rsync' | awk '{ print $1 }') bash -c "crontab -l"
 
