@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# docker DNS
+if [[ "$(cat /etc/resolv.conf | grep '169.254.169.250' | wc -l)" == "0" ]]; then
+echo "nameserver 169.254.169.250" > /etc/resolv.conf
+fi
+
 # ssh-copy-id
 if [ ! -f /root/.ssh/id_rsa ]&&[ ! -z "${CRONHOST}" ]&&[ ! -z "${SSHPASSWORD}" ]; then
 /usr/bin/ssh-keygen -t rsa -b 4096 -q -N "" -f /root/.ssh/id_rsa &>/dev/null
