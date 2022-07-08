@@ -10,6 +10,9 @@ RUN set -ex && \
 
 COPY start-cron /usr/sbin
 
+COPY *.sh /etc/cron.d/
+RUN chmod 755 /etc/cron.d/*.sh
+
 RUN mkdir -p /cronwork
 RUN chmod 777 /cronwork
 VOLUME /cronwork
