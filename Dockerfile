@@ -10,4 +10,12 @@ RUN set -ex && \
 
 COPY start-cron /usr/sbin
 
+RUN mkdir -p /cronwork
+RUN chmod 777 /cronwork
+VOLUME /cronwork
+
+WORKDIR /etc/cron.d
+
+ENTRYPOINT ["/etc/cron.d/docker-entrypoint.sh"]
+
 CMD ["start-cron"]
