@@ -21,12 +21,12 @@ if [[ (${SSHRC} -eq 0) ]]; then
 
 cd ${RSDIR} && (
 RSDIRS=$(tree -dif --noreport | cut -d '/' -f2-)
-echo -e "[$(date --iso-8601=seconds)] ${BLUE}rsync push from ${RSDIR} to ${BACKUPSRV}:${BACKUPDIR} started${NC}"
+echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${BLUE}rsync push from ${RSDIR} to ${BACKUPSRV}:${BACKUPDIR} started${NC}"
 rsync -aq --delete -f"+ */" -f"- *" . ${BACKUPSRV}:${BACKUPDIR}
 RRC=$?
-echo -e "[$(date --iso-8601=seconds)] ${BLUE}directory tree synked (RC=${RRC})${NC}"
+echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${BLUE}directory tree synked (RC=${RRC})${NC}"
 for DIRPATH in ${RSDIRS}; do
-  echo -en "[$(date --iso-8601=seconds)] ${YELLOW}files in directory ${DIRPATH} synking ... ${NC}"
+  echo -en "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${YELLOW}files in directory ${DIRPATH} synking ... ${NC}"
   rsync -aq --no-recursive ${DIRPATH}/* ${BACKUPSRV}:${BACKUPDIR}/${DIRPATH} 2>/dev/null
   RRC=$?
   if [[ "${RRC}" = "0" ]]; then
@@ -36,7 +36,7 @@ for DIRPATH in ${RSDIRS}; do
   fi
 done ) &&
 cd - 1>/dev/null
-echo -e "[$(date --iso-8601=seconds)] ${BLUE}files synked${NC}"
+echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${BLUE}files synked${NC}"
 RC=0
 
 else
