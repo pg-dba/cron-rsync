@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
-# docker DNS
+# Rancher DNS
 if [[ "$(cat /etc/resolv.conf | grep '169.254.169.250' | wc -l)" == "0" ]]; then
 echo "nameserver 169.254.169.250" > /etc/resolv.conf
+fi
+
+# cron timezone
+if [ ! -z "${TZ}" ]; then
+ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
+echo ${TZ} > /etc/timezone
 fi
 
 # ssh-copy-id
