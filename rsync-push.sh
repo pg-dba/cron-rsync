@@ -3,9 +3,9 @@
 
 if [[ ("$#" -eq 3) ]]; then
 
-RSDIR=$1
-BACKUPSRV=$2
-BACKUPDIR=$3
+RSDIR=$1	# Каталог, который бэкапируется
+BACKUPSRV=$2	# Сервер бэкапирования
+BACKUPDIR=$3	# Каталог, куда бэкапируется
 
 YELLOW='\033[1;33m'
 BLUE='\033[1;36m'
@@ -74,5 +74,6 @@ exit ${RC}
 # rm -rf /tmp/PG_BACKUP && mkdir -p /tmp/PG_BACKUP
 # du -sh /tmp/PG_BACKUP
 # tree -dif --noreport /tmp/PG_BACKUP
+# число файлов в каждом каталоге
 # find /data/postgres -type d -print0 | xargs -0 -I {} bash -c 'echo -e "$(find {} -maxdepth 1 -type f | wc -l)\t{}"' | sort -k 2
 # find /tmp/PG_BACKUP -type d -print0 | xargs -0 -I {} bash -c 'echo -e "$(find {} -maxdepth 1 -type f | wc -l)\t{}"' | sort -k 2

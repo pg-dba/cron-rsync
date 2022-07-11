@@ -3,9 +3,9 @@
 
 if [[ ("$#" -eq 3) ]]; then
 
-DATASRV=$1
-RSDIR=$2
-BACKUPDIR=$3
+DATASRV=$1	# Сервер, данные с которого бэкапируются
+RSDIR=$2	# Каталог, который бэкапируется
+BACKUPDIR=$3	# Каталог, куда бэкапируется (на локальном сервере)
 
 YELLOW='\033[1;33m'
 BLUE='\033[1;36m'
@@ -19,7 +19,7 @@ SSHRC=$?
 
 if [[ (${SSHRC} -eq 0) ]]; then
 
-# RSDIRS=$(ssh ${DATASRV} "cd ${RSDIR} && tree -dif --noreport | cut -d '/' -f2-" <<-EOF) # interactive
+# RSDIRS=$(ssh ${DATASRV} "cd ${RSDIR} && tree -dif --noreport | cut -d '/' -f2-" <<-EOF) # для интерактивного выполнения кода
 RSDIRS=$(ssh ${DATASRV} "cd ${RSDIR} && tree -dif --noreport | cut -d '/' -f2-")
 if [ -t 0 ]; then # if the script is not run by cron
   echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${BLUE}rsync pull from ${DATASRV}:${RSDIR} to ${BACKUPDIR} started${NC}"
@@ -73,5 +73,6 @@ exit ${RC}
 # rm -rf /tmp/PG_BACKUP && mkdir -p /tmp/PG_BACKUP
 # du -sh /tmp/PG_BACKUP
 # tree -dif --noreport /tmp/PG_BACKUP
+# число файлов в каждом каталоге
 # find /data/postgres -type d -print0 | xargs -0 -I {} bash -c 'echo -e "$(find {} -maxdepth 1 -type f | wc -l)\t{}"' | sort -k 2
 # find /tmp/PG_BACKUP -type d -print0 | xargs -0 -I {} bash -c 'echo -e "$(find {} -maxdepth 1 -type f | wc -l)\t{}"' | sort -k 2
