@@ -19,7 +19,8 @@ SSHPASS=${SSHPASSWORD} /usr/bin/sshpass -e ssh-copy-id ${CRONHOST} &>/dev/null
 rm -f ~/.ssh/known_hosts.old &>/dev/null
 # оставляем только последний ssh id. остальные удаляем, чтобы не мусорить
 SSHKEY=$(cat ~/.ssh/id_rsa.pub | rev | sed 's/ .*//' | rev)
-ssh ${CRONHOST} "if test -f $HOME/.ssh/authorized_keys; then if grep -v '${SSHKEY}' $HOME/.ssh/authorized_keys > $HOME/.ssh/tmp; then grep '${SSHKEY}' $HOME/.ssh/authorized_keys | tail -n 1 >> $HOME/.ssh/tmp; cat $HOME/.ssh/tmp > $HOME/.ssh/authorized_keys && rm -f $HOME/.ssh/tmp; else rm -f $HOME/.ssh/tmp; fi; fi;"
+#ssh ${CRONHOST} "if test -f $HOME/.ssh/authorized_keys; then if grep -v '${SSHKEY}' $HOME/.ssh/authorized_keys > $HOME/.ssh/tmp; then grep '${SSHKEY}' $HOME/.ssh/authorized_keys | tail -n 1 >> $HOME/.ssh/tmp; cat $HOME/.ssh/tmp > $HOME/.ssh/authorized_keys && rm -f $HOME/.ssh/tmp; else rm -f $HOME/.ssh/tmp; fi; fi;"
+ssh ${CRONHOST} "if test -f $HOME/.ssh/authorized_keys; then rm -f $HOME/.ssh/tmp; grep -v '${SSHKEY}' $HOME/.ssh/authorized_keys > $HOME/.ssh/tmp; grep '${SSHKEY}' $HOME/.ssh/authorized_keys | tail -n 1 >> $HOME/.ssh/tmp; cat $HOME/.ssh/tmp > $HOME/.ssh/authorized_keys; rm -f $HOME/.ssh/tmp; fi;"
 fi
 
 set -e
