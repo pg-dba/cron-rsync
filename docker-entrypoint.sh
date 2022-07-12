@@ -16,6 +16,7 @@ if [ ! -f /root/.ssh/id_rsa ]&&[ ! -z "${CRONHOST}" ]&&[ ! -z "${SSHPASSWORD}" ]
 /usr/bin/ssh-keygen -t rsa -b 4096 -q -N "" -f /root/.ssh/id_rsa &>/dev/null
 /usr/bin/ssh -o PreferredAuthentications=publickey -o StrictHostKeyChecking=no ${CRONHOST} /bin/true &>/dev/null
 SSHPASS=${SSHPASSWORD} /usr/bin/sshpass -e ssh-copy-id ${CRONHOST} &>/dev/null
+rm -f ~/.ssh/known_hosts.old &>/dev/null
 fi
 
 set -e
