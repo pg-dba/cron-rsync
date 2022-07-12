@@ -19,7 +19,7 @@ RUN set -ex && \
     ln -s /var/log/cron.log /var/log/crond.log && \
 # buns
     echo "export PS1='[\u@\h]\$ '" >> ~/.bashrc && \
-    echo 'alias nocomments="sed -e :a -re '"'"'s/<\!--.*?-->//g;/<\!--/N;//ba'"'"' | grep -v -P '"'"'^\s*(#|;|--|//|$)'"'"'"' >> ~/.bashrc
+    echo 'alias nocomments="sed -e :a -re '"'"'s/<\!--.*?-->//g;/<\!--/N;//ba'"'"' | grep -v -E '"'"'^\s*(#|;|--|//|$)'"'"'"' >> ~/.bashrc
 
 COPY start-cron /usr/sbin
 RUN chmod 744 /usr/sbin/start-cron
