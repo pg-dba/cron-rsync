@@ -39,7 +39,7 @@ for DIRPATH in ${RSDIRS}; do
   else
     echo -n "files in directory ${DIRPATH} synking ... "
   fi
-  rsync -aq --no-recursive ${DATASRV}:${RSDIR}/${DIRPATH}/* ${BACKUPDIR}/${DIRPATH} 2>/dev/null
+  rsync -aq --delete --no-recursive ${DATASRV}:${RSDIR}/${DIRPATH}/* ${BACKUPDIR}/${DIRPATH} 2>/dev/null
   RRC=$?
   if [ -t 0 ]; then # if the script is not run by cron
     if [[ "${RRC}" = "0" ]]; then
