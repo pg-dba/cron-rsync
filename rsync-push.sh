@@ -66,7 +66,7 @@ fi
 
 else
 RC=-1
-echo "Usage:\n rsync-push.sh '/data/postgres' u16d1h5 '/tmp/PG_BACKUP'"
+echo "Usage:\n rsync-push.sh '/cronwork' u16d1h5 '/tmp/PG_BACKUP'"
 fi
 
 exit ${RC}

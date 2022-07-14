@@ -12,6 +12,7 @@ RUN set -ex && \
     apk add --no-cache bind-tools && \
     apk add --no-cache sshpass && \
     apk add --no-cache rsync && \
+    apk add --no-cache tree && \
     apk add --no-cache nano && \
 # apk add --no-cache moreutils # 36 mb
 # making logging pipe
