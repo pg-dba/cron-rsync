@@ -14,6 +14,7 @@ RUN set -ex && \
     apk add --no-cache rsync && \
     apk add --no-cache tree && \
     apk add --no-cache nano && \
+    apk add --no-cache moreutils && \
 # apk add --no-cache moreutils # 36 mb
 # making logging pipe
     mkfifo -m 0666 /var/log/cron.log && \
