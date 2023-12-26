@@ -46,10 +46,10 @@ for DIRPATH in ${RSDIRS}; do
     if [[ "${RRC}" = "0" ]]; then
       echo -e "${GREEN}(RC=${RRC})${NC}"
     else
-      echo -e "${MAGENTA}(RC=${RRC})${NC}" | ts "${LNPREFIX}"
+      echo -e "${MAGENTA}(RC=${RRC})${NC}"
     fi
   else
-    echo "(RC=${RRC})" | ts "${LNPREFIX}"
+    echo "(RC=${RRC})"
   fi
 done ) &&
 cd - 1>/dev/null
