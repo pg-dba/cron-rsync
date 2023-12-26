@@ -2,7 +2,7 @@
 # rsync-cmd.sh
 
 if [[ ("$#" -eq 2) ]]; then
-  rsync -avv --delete $1/* $2 2>&1 | tail -n 4 | grep -v -E '^s*$'
+  rsync -avv --delete $1/* $2 2>&1 | tail -n 4 | grep -v -E '^s*$' | ts '[rsync] '
   RC=$?
   echo "(RC=${RC})"
 else

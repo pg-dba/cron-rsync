@@ -26,7 +26,7 @@ if [ -t 0 ]; then # if the script is not run by cron
 else
   echo "rsync push from ${RSDIR} to ${BACKUPSRV}:${BACKUPDIR} started"
 fi
-rsync -aq --delete -f"+ */" -f"- *" . ${BACKUPSRV}:${BACKUPDIR}
+rsync -aq --delete -f"+ */" -f"- *" . ${BACKUPSRV}:${BACKUPDIR} 2>/dev/null | ts '[rsync push] '
 RRC=$?
 if [ -t 0 ]; then # if the script is not run by cron
   echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${BLUE}directory tree synked (RC=${RRC})${NC}"
@@ -39,7 +39,7 @@ for DIRPATH in ${RSDIRS}; do
   else
     echo -n "files in directory ${DIRPATH} synking ... "
   fi
-  rsync -aq --no-recursive ${DIRPATH}/* ${BACKUPSRV}:${BACKUPDIR}/${DIRPATH} 2>/dev/null
+  rsync -aq --no-recursive ${DIRPATH}/* ${BACKUPSRV}:${BACKUPDIR}/${DIRPATH} 2>/dev/null | ts '[rsync push] '
   RRC=$?
   if [ -t 0 ]; then # if the script is not run by cron
     if [[ "${RRC}" = "0" ]]; then
