@@ -1,9 +1,10 @@
 #!/bin/bash
 # rsync-cmd.sh
+# https://manpage.me/?rsync
 LNPREFIX='[rsync] '
 
 if [[ ("$#" -eq 2) ]]; then
-  rsync -avv --delete $1/* $2 2>&1 | tail -n 4 | grep -v -E '^s*$' | ts "${LNPREFIX}"
+  rsync -aAXvv --delete --numeric-ids --exclude='lost+found' $1/* $2 2>&1 | (head -1 ; tail -4) | grep -v -E '^s*$' | ts "${LNPREFIX}"
   RC=$?
   echo "(RC=${RC})" | ts "${LNPREFIX}"
 else
