@@ -57,9 +57,9 @@ cd - 1>/dev/null
 ENDTIME=$(date +%s)
 ELAPSED="$(($ENDTIME - $STARTTIME))"
 if [ -t 0 ]; then # if the script is not run by cron
-  echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${BLUE}files synked. elapsed time: %s\n\n" "$(date -d@${ELAPSED} -u +%H\ hours\ %M\ min\ %S\ sec)${NC}"
+  echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${BLUE}files synked. elapsed time: $((${ELAPSED}/3600)) hours $(((${ELAPSED}/60)%60)) minutes $((${ELAPSED}%60)) seconds${NC}"
 else
-  echo "files synked. elapsed time: %s\n\n" "$(date -d@${ELAPSED} -u +%H\ hours\ %M\ min\ %S\ sec)" | ts "${LNPREFIX}"
+  echo "files synked. elapsed time: $((${ELAPSED}/3600)) hours $(((${ELAPSED}/60)%60)) minutes $((${ELAPSED}%60)) seconds" | ts "${LNPREFIX}"
 fi
 RC=0
 

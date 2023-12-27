@@ -9,7 +9,7 @@ STARTTIME=$(date +%s)
   RC=$?
 ENDTIME=$(date +%s)
 ELAPSED="$(($ENDTIME - $STARTTIME))"
-  echo "(RC=${RC}) elapsed time: %s\n\n" "$(date -d@${ELAPSED} -u +%H\ hours\ %M\ min\ %S\ sec)" | ts "${LNPREFIX}"
+  echo "(RC=${RC}) elapsed time: $((${ELAPSED}/3600)) hours $(((${ELAPSED}/60)%60)) minutes $((${ELAPSED}%60)) seconds" | ts "${LNPREFIX}"
 else
   echo -e 'Usage:\n rsync-cmd.sh ${CRONHOST}:/data/postgres2/10/data /cronwork \n rsync-cmd.sh /cronwork ${CRONHOST}:/tmp/PG_BACKUP '
   RC=-1
