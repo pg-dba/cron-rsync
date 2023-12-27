@@ -20,6 +20,7 @@ SSHRC=$?
 
 if [[ (${SSHRC} -eq 0) ]]; then
 
+STARTTIME=$(date +%s)
 cd ${RSDIR} && (
 RSDIRS=$(tree -dif --noreport | cut -d '/' -f2-)
 if [ -t 0 ]; then # if the script is not run by cron
@@ -53,10 +54,12 @@ for DIRPATH in ${RSDIRS}; do
   fi
 done ) &&
 cd - 1>/dev/null
+ENDTIME=$(date +%s)
+ELAPSED="$(($ENDTIME - $STARTTIME))"
 if [ -t 0 ]; then # if the script is not run by cron
-  echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${BLUE}files synked${NC}"
+  echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${BLUE}files synked. elapsed time: %s\n\n" "$(date -d@${ELAPSED} -u +%H\ hours\ %M\ min\ %S\ sec)${NC}"
 else
-  echo "files synked" | ts "${LNPREFIX}"
+  echo "files synked. elapsed time: %s\n\n" "$(date -d@${ELAPSED} -u +%H\ hours\ %M\ min\ %S\ sec)" | ts "${LNPREFIX}"
 fi
 RC=0
 

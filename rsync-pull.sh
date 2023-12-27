@@ -18,6 +18,7 @@ LNPREFIX='[rsync pull] '
 ssh -o PreferredAuthentications=publickey ${DATASRV} /bin/true
 SSHRC=$?
 
+STARTTIME=$(date +%s)
 if [[ (${SSHRC} -eq 0) ]]; then
 
 # RSDIRS=$(ssh ${DATASRV} "cd ${RSDIR} && tree -dif --noreport | cut -d '/' -f2-" <<-EOF) # для интерактивного выполнения кода
@@ -52,10 +53,12 @@ for DIRPATH in ${RSDIRS}; do
     echo "(RC=${RRC})"
   fi
 done
+ENDTIME=$(date +%s)
+ELAPSED="$(($ENDTIME - $STARTTIME))"
 if [ -t 0 ]; then # if the script is not run by cron
-  echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${BLUE}files synked${NC}"
+  echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${BLUE}files synked. elapsed time: %s\n\n" "$(date -d@${ELAPSED} -u +%H\ hours\ %M\ min\ %S\ sec)${NC}"
 else
-  echo "files synked" | ts "${LNPREFIX}"
+  echo "files synked. elapsed time: %s\n\n" "$(date -d@${ELAPSED} -u +%H\ hours\ %M\ min\ %S\ sec)" | ts "${LNPREFIX}"
 fi
 RC=0
 
