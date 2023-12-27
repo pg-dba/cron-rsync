@@ -28,7 +28,7 @@ Note: у контейнера должно быть постоянное имя.
 
 Пример для "посмотреть":<BR>
 <pre><code>docker run --rm -it -h cron-rsync \
-  -e TZ='Europe/Moscow' -e CRONHOST=172.27.172.32 -e SSHPASSWORD=P@ssw0rd \
+  -e TZ='Europe/Moscow' -e PARTNER=172.27.172.32 -e SSHPASSWORD=P@ssw0rd \
   -v /tmp:/cronwork \
   sqldbapg/cron-rsync \
   start-cron "\\*/1 \\* \\* \\* \\* env \\| sort 2>&1 1>>/var/log/cron.log" &

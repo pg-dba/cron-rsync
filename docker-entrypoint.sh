@@ -12,14 +12,14 @@ echo ${TZ} > /etc/timezone
 fi
 
 # ssh-copy-id
-if [ ! -f /root/.ssh/id_rsa ]&&[ ! -z "${CRONHOST}" ]&&[ ! -z "${SSHPASSWORD}" ]; then
+if [ ! -f /root/.ssh/id_rsa ]&&[ ! -z "${PARTNER}" ]&&[ ! -z "${SSHPASSWORD}" ]; then
 /usr/bin/ssh-keygen -t rsa -b 4096 -q -N "" -f /root/.ssh/id_rsa &>/dev/null
-/usr/bin/ssh -o PreferredAuthentications=publickey -o StrictHostKeyChecking=no ${CRONHOST} /bin/true &>/dev/null
-SSHPASS=${SSHPASSWORD} /usr/bin/sshpass -e ssh-copy-id ${CRONHOST} &>/dev/null
+/usr/bin/ssh -o PreferredAuthentications=publickey -o StrictHostKeyChecking=no ${PARTNER} /bin/true &>/dev/null
+SSHPASS=${SSHPASSWORD} /usr/bin/sshpass -e ssh-copy-id ${PARTNER} &>/dev/null
 rm -f ~/.ssh/known_hosts.old &>/dev/null
 # оставляем только последний ssh id. остальные удаляем, чтобы не мусорить
 SSHKEY=$(cat ~/.ssh/id_rsa.pub | rev | sed 's/ .*//' | rev)
-ssh ${CRONHOST} "if test -f $HOME/.ssh/authorized_keys; then rm -f $HOME/.ssh/tmp; grep -v '${SSHKEY}' $HOME/.ssh/authorized_keys > $HOME/.ssh/tmp; grep '${SSHKEY}' $HOME/.ssh/authorized_keys | tail -n 1 >> $HOME/.ssh/tmp; cat $HOME/.ssh/tmp > $HOME/.ssh/authorized_keys; rm -f $HOME/.ssh/tmp; fi;"
+ssh ${PARTNER} "if test -f $HOME/.ssh/authorized_keys; then rm -f $HOME/.ssh/tmp; grep -v '${SSHKEY}' $HOME/.ssh/authorized_keys > $HOME/.ssh/tmp; grep '${SSHKEY}' $HOME/.ssh/authorized_keys | tail -n 1 >> $HOME/.ssh/tmp; cat $HOME/.ssh/tmp > $HOME/.ssh/authorized_keys; rm -f $HOME/.ssh/tmp; fi;"
 fi
 
 set -e
